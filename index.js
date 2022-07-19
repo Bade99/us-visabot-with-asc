@@ -10,11 +10,19 @@ const getEarlierSpot = require('./src/getEarlierSpot');
 const Logger = require('./src/logger');
 const { sendMessage, messageTypes } = require('./src/notifications');
 const reserveAppointment = require('./src/reserveAppointment');
+const timeIsValid = require("./src/timeIsValid");
+const secondsUntilWakeup = require("./src/secondsUntilWakeup");
 
 const waitingTime = 7;
 const logger = new Logger();
 
 const startProcess = async () => {
+  if (!timeIsValid()) {
+    console.log(chalk.yellow('⌛ Waiting for the next morning...'));
+    await new Promise(resolve => setTimeout(resolve, secondsUntilWakeup()));
+    console.log(chalk.green('✅ Waiting finished'));
+  }
+
   console.log(chalk.cyan('✨ Lets start the scrapping...'));
   const browser = await puppeteer.launch({ headless: process.env.NODE_ENV === 'prod' });
   const page = await browser.newPage();
