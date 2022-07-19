@@ -1,7 +1,9 @@
 const nodemailer = require('nodemailer');
 const chalk = require('chalk');
+const Pushover = require( 'pushover-js').Pushover;
 
-const { NOTIFICATIONS_MAIL, NOTIFICATIONS_SECRET, email } = process.env;
+const { NOTIFICATIONS_MAIL, NOTIFICATIONS_SECRET, email, PUSHOVER_USER, PUSHOVER_TOKEN } = process.env;
+const pushover = new Pushover(PUSHOVER_USER, PUSHOVER_TOKEN)
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
@@ -17,6 +19,7 @@ transporter.verify()
   .then(() => console.log(chalk.blue('📧 System ready to send notifications')));
 
 const notifySpotAvailable = async (date) => {
+  await pushover.setSound('gamelan').setMessage(`Visa spot available on ${date}`).setPriority(2, 60, 30).setUrl('https://ais.usvisa-info.com/es-mx/niv/users/sign_in').send(`📅 ${date.toDateString()} is available for consulate appointment.`);
   await transporter.sendMail({
     from: 'Visa Alerts <visaalertservice@gmail.com>',
     to: email,
