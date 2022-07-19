@@ -5,16 +5,16 @@ const timeIsValid = () => {
   const currentDate = new Date()
 
   const startDate = new Date(currentDate.getTime());
-  startDate.setHours(parseInt(startTime.split(":")[0]));
-  startDate.setMinutes(parseInt(startTime.split(":")[1]));
-  startDate.setSeconds(parseInt(startTime.split(":")[2]));
+  startDate.setHours((startTime.split(":")[0]));
+  startDate.setMinutes((startTime.split(":")[1]));
+  startDate.setSeconds((startTime.split(":")[2]));
 
   console.log(startDate)
 
   const endDate = new Date(currentDate.getTime());
-  endDate.setHours(parseInt(endTime.split(":")[0]));
-  endDate.setMinutes(parseInt(endTime.split(":")[1]));
-  endDate.setSeconds(parseInt(endTime.split(":")[2]));
+  endDate.setHours((endTime.split(":")[0]));
+  endDate.setMinutes((endTime.split(":")[1]));
+  endDate.setSeconds((endTime.split(":")[2]));
 
   console.log(endDate)
 
