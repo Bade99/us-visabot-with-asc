@@ -10,7 +10,7 @@ const getEarlierSpot = require('./src/getEarlierSpot');
 const Logger = require('./src/logger');
 const { sendMessage, messageTypes } = require('./src/notifications');
 const reserveAppointment = require('./src/reserveAppointment');
-const timeIsValid = require("./src/timeIsValid");
+const timeIsNight = require("./src/timeIsValid");
 const secondsUntilWakeup = require("./src/secondsUntilWakeup");
 
 const waitingTime = 9;
@@ -18,9 +18,8 @@ const logger = new Logger();
 
 const startProcess = async () => {
   console.log(chalk.yellow('⌛ Starting process at ' + new Date().toLocaleString("en-US", {timeZone: "America/Mexico_City"})));
-  if (!timeIsValid()) {
+  if (timeIsNight()) {
     console.log(chalk.yellow('⌛ Waiting for the next morning...'));
-    console.log(chalk.yellow('⌛ Waiting for ' + secondsUntilWakeup() + ' seconds...'));
     await new Promise(resolve => setTimeout(resolve, secondsUntilWakeup()));
     console.log(chalk.green('✅ Waiting finished'));
   }
