@@ -19,6 +19,7 @@ const timeIsValid = () => {
   console.log(endDate)
 
   console.log(currentDate)
+  console.log(startDate < currentDate && endDate > currentDate)
 
   return startDate < currentDate && endDate > currentDate
 }
