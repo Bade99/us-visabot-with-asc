@@ -9,11 +9,16 @@ const timeIsValid = () => {
   startDate.setMinutes(parseInt(startTime.split(":")[1]));
   startDate.setSeconds(parseInt(startTime.split(":")[2]));
 
+  console.log(startDate)
+
   const endDate = new Date(currentDate.getTime());
   endDate.setHours(parseInt(endTime.split(":")[0]));
   endDate.setMinutes(parseInt(endTime.split(":")[1]));
   endDate.setSeconds(parseInt(endTime.split(":")[2]));
 
+  console.log(endDate)
+
+  console.log(currentDate)
 
   return startDate < currentDate && endDate > currentDate
 }
