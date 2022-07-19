@@ -17,7 +17,7 @@ const waitingTime = 9;
 const logger = new Logger();
 
 const startProcess = async () => {
-  console.log(chalk.yellow('⌛ Starting process at ' + new Date()));
+  console.log(chalk.yellow('⌛ Starting process at ' + new Date().toLocaleString("en-US", {timeZone: "America/Mexico_City"})));
   if (!timeIsValid()) {
     console.log(chalk.yellow('⌛ Waiting for the next morning...'));
     await new Promise(resolve => setTimeout(resolve, secondsUntilWakeup()));
