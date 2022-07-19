@@ -13,7 +13,7 @@ const reserveAppointment = require('./src/reserveAppointment');
 const timeIsValid = require("./src/timeIsValid");
 const secondsUntilWakeup = require("./src/secondsUntilWakeup");
 
-const waitingTime = 7;
+const waitingTime = 9;
 const logger = new Logger();
 
 const startProcess = async () => {
