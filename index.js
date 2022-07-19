@@ -22,7 +22,7 @@ const startProcess = async () => {
     await page.setViewport({ width: 1366, height: 900});
   }
   try {
-    await page.goto('https://ais.usvisa-info.com/en-co/niv/users/sign_in');
+    await page.goto('https://ais.usvisa-info.com/es-mx/niv/users/sign_in');
     await login(page);
     const appointmentDates = await getCurrentAppointmentDate(page);
     await goToRescheduleAppointment(page);

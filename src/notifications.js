@@ -21,7 +21,7 @@ const notifySpotAvailable = async (date) => {
     from: 'Visa Alerts <visaalertservice@gmail.com>',
     to: email,
     subject: `Visa spot available on ${date}`,
-    html: '<b><a href="https://ais.usvisa-info.com/en-co/niv/users/sign_in">Reserve your spot now!</a></b>'
+    html: '<b><a href="https://ais.usvisa-info.com/es-mx/niv/users/sign_in">Reserve your spot now!</a></b>'
   });
 };
 
