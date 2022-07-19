@@ -12,9 +12,11 @@ const { sendMessage, messageTypes } = require('./src/notifications');
 const reserveAppointment = require('./src/reserveAppointment');
 const timeIsNight = require("./src/timeIsValid");
 const secondsUntilWakeup = require("./src/secondsUntilWakeup");
+const setStatus = require("./src/status");
 
 const waitingTime = 9;
 const logger = new Logger();
+let isRunning = false;
 
 const startProcess = async () => {
   console.log(chalk.yellow('⌛ Starting process at ' + new Date().toLocaleString("en-US", {timeZone: "America/Mexico_City"})));
@@ -39,16 +41,19 @@ const startProcess = async () => {
     const isEarlier = new Date(earlierDay) < appointmentDates.consularAppointment;
 
     logger.updateLog(`${new Date().toISOString()}: Current date: ${appointmentDates.consularAppointment.toDateString()}, earlier spot: ${earlierDay}. earlier: ${isEarlier}`);
-  
+
+    isRunning = true;
     if (isEarlier) {
       await sendMessage(messageTypes.SPOT_AVAILABLE, earlierDay);
       await reserveAppointment(page);
     }
   
   } catch (error) {
+    isRunning = false;
     console.log(chalk.red(`❌ ${error.message}`));
   } finally {
     if (process.env.NODE_ENV === 'prod') {
+      setStatus(isRunning ? 'running' : 'cooling down');
       console.log(chalk.blue(`🛑 Closing the browser`));
       console.log(chalk.yellow(`⌛ Scraper will run again in ${waitingTime} minutes`));
       console.log();
