@@ -13,6 +13,8 @@ const reserveAppointment = require('./src/reserveAppointment');
 const timeIsNight = require("./src/timeIsValid");
 const secondsUntilWakeup = require("./src/secondsUntilWakeup");
 const setStatus = require("./src/status");
+const {delay} = require("./src/utils");
+const coolDown = require("./src/coolDown");
 
 const waitingTime = 9;
 const logger = new Logger();
@@ -22,7 +24,7 @@ const startProcess = async () => {
   console.log(chalk.yellow('⌛ Starting process at ' + new Date().toLocaleString("en-US", {timeZone: "America/Mexico_City"})));
   if (timeIsNight()) {
     console.log(chalk.yellow('⌛ Waiting for the next morning...'));
-    await new Promise(resolve => setTimeout(resolve, secondsUntilWakeup()));
+    await delay(secondsUntilWakeup());
     console.log(chalk.green('✅ Waiting finished'));
   }
 
@@ -58,6 +60,7 @@ const startProcess = async () => {
       console.log(chalk.yellow(`⌛ Scraper will run again in ${waitingTime} minutes`));
       console.log();
       console.log();
+      await coolDown(isRunning ? 'running' : 'cooling down');
       await browser.close();
     }
   }
