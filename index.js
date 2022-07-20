@@ -55,12 +55,12 @@ const startProcess = async () => {
     console.log(chalk.red(`❌ ${error.message}`));
   } finally {
     if (process.env.NODE_ENV === 'prod') {
+      await coolDown(isRunning ? 'running' : 'cooling down');
       setStatus(isRunning ? 'running' : 'cooling down');
       console.log(chalk.blue(`🛑 Closing the browser`));
       console.log(chalk.yellow(`⌛ Scraper will run again in ${waitingTime} minutes`));
       console.log();
       console.log();
-      await coolDown(isRunning ? 'running' : 'cooling down');
       await browser.close();
     }
   }
