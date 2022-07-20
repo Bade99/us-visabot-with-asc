@@ -24,7 +24,7 @@ const startProcess = async () => {
   console.log(chalk.yellow('⌛ Starting process at ' + new Date().toLocaleString("en-US", {timeZone: "America/Mexico_City"})));
   if (timeIsNight()) {
     console.log(chalk.yellow('⌛ Waiting for the next morning...'));
-    await delay(secondsUntilWakeup());
+    await delay(secondsUntilWakeup() * 1000);
     console.log(chalk.green('✅ Waiting finished'));
   }
 
