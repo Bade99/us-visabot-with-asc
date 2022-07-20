@@ -13,9 +13,9 @@ const reserveAppointment = async (page) => {
     throw new RestartableError();
   }
 
-  await selectOption(page, consulateHourSelector, hoursArray[0]);
+  await selectOption(page, consulateHourSelector, hoursArray[hoursArray.length - 1]);
 
-  console.log(chalk.green('✅ Hour selected: ' + hoursArray[0]));
+  console.log(chalk.green('✅ Hour selected: ' + hoursArray[hoursArray.length - 1]));
 
   await delay(500);
 
@@ -32,9 +32,9 @@ const reserveAppointment = async (page) => {
     throw new RestartableError();
   }
 
-  await selectOption(page, ASCHourSelector, ASChoursArray[0]);
+  await selectOption(page, ASCHourSelector, ASChoursArray[ASChoursArray.length - 1]);
 
-  console.log(chalk.green('✅ Hour selected: ' + ASChoursArray[0]));
+  console.log(chalk.green('✅ Hour selected: ' + ASChoursArray[ASChoursArray.length - 1]));
 
   await page.click('#appointments_submit');
   await page.waitForNavigation();
