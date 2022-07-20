@@ -14,8 +14,15 @@ async function selectEarlierAvailableDay(page, calendarSelector) {
       availableSpot = document.querySelector(
           `${calendarSelector} .ui-datepicker-calendar td:not(.ui-datepicker-unselectable)`);
       if (availableSpot) {
-        availableSpot.querySelector('a').click();
-        break;
+        let dayTmp = availableSpot.textContent;
+        let monthTmp = document.querySelector(
+            `${calendarSelector} .ui-datepicker-month`).textContent;
+        let yearTmp = document.querySelector(
+            `${calendarSelector} .ui-datepicker-year`).textContent;
+        if (new Date(`${dayTmp} ${monthTmp} ${yearTmp}`) >= new Date().setDate(new Date().getDate() + 4)) {
+          availableSpot.querySelector('a').click();
+          break;
+        }
       }
       document.querySelector('#ui-datepicker-div a[data-handler=next]').click();
       i++;
