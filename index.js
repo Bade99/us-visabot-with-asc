@@ -10,6 +10,7 @@ const getEarlierSpot = require('./src/getEarlierSpot');
 const Logger = require('./src/logger');
 const { sendMessage, messageTypes } = require('./src/notifications');
 const reserveAppointment = require('./src/reserveAppointment');
+const timeIsNight = require("./src/timeIsValid");
 const setStatus = require("./src/status");
 const coolDown = require("./src/coolDown");
 
@@ -18,6 +19,11 @@ const logger = new Logger();
 let isRunning = false;
 
 const startProcess = async () => {
+
+  if (timeIsNight()) {
+    console.log(chalk.yellow('⌛ Waiting for the next morning...'));
+    return;
+  }
   console.log(chalk.yellow('⌛ Starting process at ' + new Date().toLocaleString("en-US", {timeZone: "America/Mexico_City"})));
 
   console.log(chalk.cyan('✨ Lets start the scrapping...'));
