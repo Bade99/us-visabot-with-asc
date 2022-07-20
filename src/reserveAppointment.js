@@ -37,7 +37,9 @@ const reserveAppointment = async (page) => {
   console.log(chalk.green('✅ Hour selected: ' + ASChoursArray[0]));
 
   await page.click('#appointments_submit');
-  await delay(1000);
+  await page.waitForNavigation();
+  await delay(5000);
+  await page.screenshot({ path: './reserveAppointment.png' });
   console.log(chalk.green('✅ Appointment reserved succesfully!'));
 };
 
