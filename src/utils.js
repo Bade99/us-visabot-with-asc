@@ -19,7 +19,7 @@ async function selectEarlierAvailableDay(page, calendarSelector) {
             `${calendarSelector} .ui-datepicker-month`).textContent;
         let yearTmp = document.querySelector(
             `${calendarSelector} .ui-datepicker-year`).textContent;
-        if (new Date(`${dayTmp} ${monthTmp} ${yearTmp}`) >= new Date().setDate(new Date().getDate() + 4)) {
+        if (new Date(`${dayTmp} ${monthTmp} ${yearTmp}`) >= new Date().setDate(new Date().getDate() + 5)) {
           availableSpot.querySelector('a').click();
           break;
         }

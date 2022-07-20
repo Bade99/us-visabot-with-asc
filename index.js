@@ -38,7 +38,7 @@ const startProcess = async () => {
     const appointmentDates = await getCurrentAppointmentDate(page);
     await goToRescheduleAppointment(page);
     const earlierDay = await getEarlierSpot(page);
-    const isEarlier = new Date(earlierDay) < appointmentDates.consularAppointment && new Date(earlierDay) >= new Date().setDate(new Date().getDate() + 4);
+    const isEarlier = new Date(earlierDay) < appointmentDates.consularAppointment && new Date(earlierDay) >= new Date().setDate(new Date().getDate() + 5);
 
     logger.updateLog(`${new Date().toISOString()}: Current date: ${appointmentDates.consularAppointment.toDateString()}, earlier spot: ${earlierDay}. earlier: ${isEarlier}`);
 
