@@ -65,7 +65,7 @@ if (process.env.NODE_ENV === 'prod') {
   const intervalTime = 1000 * 60 * waitingTime;
   if (timeIsNight()) {
     console.log(chalk.yellow('⌛ Waiting for the next morning...'));
-    await delay(secondsUntilWakeup() * 1000);
+    (async () => await delay(secondsUntilWakeup() * 1000))();
     console.log(chalk.green('✅ Waiting finished'));
   }
   startProcess();
