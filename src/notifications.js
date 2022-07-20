@@ -19,7 +19,7 @@ transporter.verify()
   .then(() => console.log(chalk.blue('📧 System ready to send notifications')));
 
 const notifySpotAvailable = async (date) => {
-  await pushover.setSound('gamelan').setMessage(`Visa spot available on ${date}`).setPriority(1).setUrl('https://ais.usvisa-info.com/es-mx/niv/users/sign_in').send(`📅 ${date.toDateString()} is available for consulate appointment.`);
+  await pushover.setSound('gamelan').setMessage(`Visa spot available on ${date}`).setPriority(1).setUrl('https://ais.usvisa-info.com/es-mx/niv/users/sign_in').send(`📅 ${date} is available for consulate appointment.`);
   await transporter.sendMail({
     from: 'Visa Alerts <visaalertservice@gmail.com>',
     to: email,
