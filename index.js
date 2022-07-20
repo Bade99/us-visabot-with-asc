@@ -10,10 +10,7 @@ const getEarlierSpot = require('./src/getEarlierSpot');
 const Logger = require('./src/logger');
 const { sendMessage, messageTypes } = require('./src/notifications');
 const reserveAppointment = require('./src/reserveAppointment');
-const timeIsNight = require("./src/timeIsValid");
-const secondsUntilWakeup = require("./src/secondsUntilWakeup");
 const setStatus = require("./src/status");
-const {delay} = require("./src/utils");
 const coolDown = require("./src/coolDown");
 
 const waitingTime = 9;
@@ -63,11 +60,6 @@ const startProcess = async () => {
 
 if (process.env.NODE_ENV === 'prod') {
   const intervalTime = 1000 * 60 * waitingTime;
-  if (timeIsNight()) {
-    console.log(chalk.yellow('⌛ Waiting for the next morning...'));
-    (async () => await delay(secondsUntilWakeup() * 1000))();
-    console.log(chalk.green('✅ Waiting finished'));
-  }
   startProcess();
 
   setInterval(() => {
