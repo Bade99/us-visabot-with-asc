@@ -20,7 +20,7 @@ const reserveAppointment = async (page) => {
   await delay(500);
 
   console.log(chalk.yellow('⌛ Looking for earlier spot for ASC appoinment...'));
-  const earlierDayASC = await selectEarlierAvailableDay(page, '#appointments_asc_appointment_date');
+  const earlierDayASC = await selectEarlierAvailableDay(page, '#appointments_asc_appointment_date', true);
   console.log(chalk.green('✅ Earlier spot found', earlierDayASC));
   console.log(chalk.yellow('⌛ Selecting hour for the ASC appointment...'));
   await delay(500);

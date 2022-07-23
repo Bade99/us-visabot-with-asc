@@ -4,7 +4,7 @@ function delay(time) {
   });
 };
 
-async function selectEarlierAvailableDay(page, calendarSelector) {
+async function selectEarlierAvailableDay(page, calendarSelector, cas = false) {
   return await page.evaluate((selector) => {
     document.querySelector(selector).click();
     const calendarSelector = '#ui-datepicker-div .ui-datepicker-group-first';
@@ -19,9 +19,11 @@ async function selectEarlierAvailableDay(page, calendarSelector) {
             `${calendarSelector} .ui-datepicker-month`).textContent;
         let yearTmp = document.querySelector(
             `${calendarSelector} .ui-datepicker-year`).textContent;
-        if (new Date(`${dayTmp} ${monthTmp} ${yearTmp}`) >= new Date().setDate(new Date().getDate() + 5)) {
+        if (new Date(`${dayTmp} ${monthTmp} ${yearTmp}`) >= new Date().setDate(new Date().getDate() + 5) && !cas) {
           availableSpot.querySelector('a').click();
           break;
+        } else if(cas) {
+          availableSpot.querySelector('a').click();
         }
       }
       document.querySelector('#ui-datepicker-div a[data-handler=next]').click();

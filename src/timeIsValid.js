@@ -1,6 +1,4 @@
-const timeIsValid = () => {
-  const startTime = '04:00:00';
-  const endTime = '13:00:00';
+const timeIsValid = (startTime, endTime) => {
 
   const currentDate = new Date()
 
