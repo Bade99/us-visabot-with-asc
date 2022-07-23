@@ -4,7 +4,7 @@ function delay(time) {
   });
 };
 
-async function selectEarlierAvailableDay(page, calendarSelector, cas = false) {
+async function selectEarlierAvailableDay(page, calendarSelector) {
   return await page.evaluate((selector) => {
     document.querySelector(selector).click();
     const calendarSelector = '#ui-datepicker-div .ui-datepicker-group-first';
@@ -19,12 +19,41 @@ async function selectEarlierAvailableDay(page, calendarSelector, cas = false) {
             `${calendarSelector} .ui-datepicker-month`).textContent;
         let yearTmp = document.querySelector(
             `${calendarSelector} .ui-datepicker-year`).textContent;
-        if (new Date(`${dayTmp} ${monthTmp} ${yearTmp}`) >= new Date().setDate(new Date().getDate() + 5) && !cas) {
+        if (new Date(`${dayTmp} ${monthTmp} ${yearTmp}`) >= new Date().setDate(new Date().getDate() + 5)) {
           availableSpot.querySelector('a').click();
           break;
-        } else if(cas) {
-          availableSpot.querySelector('a').click();
         }
+      }
+      document.querySelector('#ui-datepicker-div a[data-handler=next]').click();
+      i++;
+    }
+
+
+    if (availableSpot) {
+      const day = availableSpot.textContent;
+      const month = document.querySelector(
+          `${calendarSelector} .ui-datepicker-month`).textContent;
+      const year = document.querySelector(
+          `${calendarSelector} .ui-datepicker-year`).textContent;
+      return `${day} ${month} ${year}`;
+    }
+
+    return 'none';
+  }, calendarSelector);
+}
+
+async function selectEarlierAvailableDayCas(page, calendarSelector) {
+  return await page.evaluate((selector) => {
+    document.querySelector(selector).click();
+    const calendarSelector = '#ui-datepicker-div .ui-datepicker-group-first';
+    let i = 0;
+    let availableSpot;
+    while (i < 30) {
+      availableSpot = document.querySelector(
+          `${calendarSelector} .ui-datepicker-calendar td:not(.ui-datepicker-unselectable)`);
+      if (availableSpot) {
+          availableSpot.querySelector('a').click();
+          break;
       }
       document.querySelector('#ui-datepicker-div a[data-handler=next]').click();
       i++;
@@ -94,3 +123,4 @@ module.exports.delay = delay;
 module.exports.selectEarlierAvailableDay = selectEarlierAvailableDay;
 module.exports.getHoursFromSelect = getHoursFromSelect;
 module.exports.selectOption = selectOption;
+module.exports.selectEarlierAvailableDayCas = selectEarlierAvailableDayCas;

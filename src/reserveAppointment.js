@@ -1,4 +1,6 @@
-const { delay , getHoursFromSelect, selectEarlierAvailableDay, selectOption} = require('./utils');
+const { delay , getHoursFromSelect, selectEarlierAvailableDay, selectOption,
+  selectEarlierAvailableDayCas
+} = require('./utils');
 const { RestartableError } = require('./errors');
 const chalk = require('chalk');
 
@@ -20,7 +22,7 @@ const reserveAppointment = async (page) => {
   await delay(500);
 
   console.log(chalk.yellow('⌛ Looking for earlier spot for ASC appoinment...'));
-  const earlierDayASC = await selectEarlierAvailableDay(page, '#appointments_asc_appointment_date', true);
+  const earlierDayASC = await selectEarlierAvailableDayCas(page, '#appointments_asc_appointment_date');
   console.log(chalk.green('✅ Earlier spot found', earlierDayASC));
   console.log(chalk.yellow('⌛ Selecting hour for the ASC appointment...'));
   await delay(500);
