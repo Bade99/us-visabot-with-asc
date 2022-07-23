@@ -21,7 +21,7 @@ let isRunning = false;
 
 const startProcess = async () => {
 
-  if (timeIsValid('04:00:00', '13:00:00')) {
+  if (timeIsValid('05:00:00', '13:00:00')) {
     console.log(chalk.yellow('⌛ Waiting for the next morning...'));
     return;
   }
