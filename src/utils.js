@@ -41,7 +41,7 @@ async function selectEarlierAvailableDay(page, calendarSelector, cas = false) {
     }
 
     return 'none';
-  }, calendarSelector);
+  }, calendarSelector, cas);
 }
 
 async function getHoursFromSelect(page, selector) {
