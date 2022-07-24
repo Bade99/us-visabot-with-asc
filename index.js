@@ -25,7 +25,7 @@ const startProcess = async () => {
     console.log(chalk.yellow('⌛ Waiting for the next morning...'));
     return;
   }
-  if (timeIsValid('16:30:00', '17:30:00') || timeIsValid('01:30:00', '02:30:00')) {
+  if (timeIsValid('16:30:00', '17:30:00') || timeIsValid('23:30:00', '00:30:00')) {
     console.log(chalk.yellow('⌛ Trying to dodge the ban hammer...'));
     return;
   }
