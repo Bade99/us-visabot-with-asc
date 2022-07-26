@@ -70,7 +70,7 @@ async function selectEarlierAvailableDayCas(page, calendarSelector) {
     }
 
     return 'none';
-  }, calendarSelector, cas);
+  }, calendarSelector);
 }
 
 async function getHoursFromSelect(page, selector) {
