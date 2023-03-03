@@ -25,7 +25,7 @@ const reserveAppointment = async (page) => {
   const earlierDayASC = await selectEarlierAvailableDayCas(page, '#appointments_asc_appointment_date');
   console.log(chalk.green('✅ Earlier spot found', earlierDayASC));
   console.log(chalk.yellow('⌛ Selecting hour for the ASC appointment...'));
-  await delay(500);
+  await delay(2000);
   const ASCHourSelector = '#appointments_asc_appointment_time';
   const ASChoursArray = await getHoursFromSelect(page, ASCHourSelector);
 
