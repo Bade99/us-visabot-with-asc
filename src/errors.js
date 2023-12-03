@@ -1,7 +1,7 @@
 class RestartableError extends Error {
   constructor(message = "", ...args) {
     super(message, ...args);
-    this.message = "Something fail please restart";
+    this.message = "Something failed, please restart";
     this.value = 3;
   }
 }

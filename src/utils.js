@@ -1,16 +1,25 @@
+﻿
 function delay(time) {
   return new Promise(function(resolve) { 
       setTimeout(resolve, time)
   });
 };
 
+async function waitForSelectorVisible(page, selector){
+	await page.waitForSelector(selector, {visible: true});
+}
+
 async function selectEarlierAvailableDay(page, calendarSelector) {
   return await page.evaluate((selector) => {
     document.querySelector(selector).click();
     const calendarSelector = '#ui-datepicker-div .ui-datepicker-group-first';
-    let i = 0;
     let availableSpot;
-    while (i < 30) {
+    const monthIterations = 14;
+
+    for(let i=0;i<monthIterations;i++){const prev = document.querySelector('#ui-datepicker-div a[data-handler=prev]');if(prev)prev.click();}
+
+    let i = 0;
+    while (i < monthIterations) {
       availableSpot = document.querySelector(
           `${calendarSelector} .ui-datepicker-calendar td:not(.ui-datepicker-unselectable)`);
       if (availableSpot) {
@@ -19,7 +28,7 @@ async function selectEarlierAvailableDay(page, calendarSelector) {
             `${calendarSelector} .ui-datepicker-month`).textContent;
         let yearTmp = document.querySelector(
             `${calendarSelector} .ui-datepicker-year`).textContent;
-        if (new Date(`${dayTmp} ${monthTmp} ${yearTmp}`) >= new Date().setDate(new Date().getDate() + 5)) {
+        if (new Date(`${dayTmp} ${monthTmp} ${yearTmp}`) >= new Date().setDate(new Date().getDate() + 4)) {
           availableSpot.querySelector('a').click();
           break;
         }
@@ -27,7 +36,6 @@ async function selectEarlierAvailableDay(page, calendarSelector) {
       document.querySelector('#ui-datepicker-div a[data-handler=next]').click();
       i++;
     }
-
 
     if (availableSpot) {
       const day = availableSpot.textContent;
@@ -43,22 +51,36 @@ async function selectEarlierAvailableDay(page, calendarSelector) {
 }
 
 async function selectEarlierAvailableDayCas(page, calendarSelector) {
+  //await page.evaluate((selector) => { document.querySelector(selector).click();}, calendarSelector);
+  //await delay(500);
   return await page.evaluate((selector) => {
     document.querySelector(selector).click();
     const calendarSelector = '#ui-datepicker-div .ui-datepicker-group-first';
-    let i = 0;
     let availableSpot;
-    while (i < 30) {
+    const monthIterations = 14;
+
+    for(let i=0;i<monthIterations;i++){const prev = document.querySelector('#ui-datepicker-div a[data-handler=prev]');if(prev)prev.click();}
+
+    let i = 0;
+    while (i < monthIterations) {
       availableSpot = document.querySelector(
           `${calendarSelector} .ui-datepicker-calendar td:not(.ui-datepicker-unselectable)`);
+
       if (availableSpot) {
+        let dayTmp = availableSpot.textContent;
+        let monthTmp = document.querySelector(
+            `${calendarSelector} .ui-datepicker-month`).textContent;
+        let yearTmp = document.querySelector(
+            `${calendarSelector} .ui-datepicker-year`).textContent;
+        if (new Date(`${dayTmp} ${monthTmp} ${yearTmp}`) >= new Date().setDate(new Date().getDate() + 1)) {
           availableSpot.querySelector('a').click();
           break;
+        }
       }
+
       document.querySelector('#ui-datepicker-div a[data-handler=next]').click();
       i++;
     }
-
 
     if (availableSpot) {
       const day = availableSpot.textContent;
@@ -120,6 +142,7 @@ function selectOption(page, selector, value) {
 };
 
 module.exports.delay = delay;
+module.exports.waitForSelectorVisible = waitForSelectorVisible;
 module.exports.selectEarlierAvailableDay = selectEarlierAvailableDay;
 module.exports.getHoursFromSelect = getHoursFromSelect;
 module.exports.selectOption = selectOption;

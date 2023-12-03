@@ -1,4 +1,6 @@
 node_modules/
+recordings/
+screenshots/
+.vs/
 .env
 log.txt
-visa.json
