@@ -10,7 +10,7 @@ Bot created with NodeJS and Puppeteer to check the US visa page for available Vi
 - `$ pm2 start index.js` [^1]
 
 That's it! The bot is going to check the page every 5 minutes and try to get you an earlier appointment.
-Also you can set it up to send you an email alert when a spot is available!
+Also you can set it up to send you an email alert or push notification when a spot is available!
 
 [^1]: Additional Commands
   `$ pm2 stop 0` to stop the program
